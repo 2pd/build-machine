@@ -1,26 +1,26 @@
-#! /bin/bash
-
-sudo apt update
+#! /bin/bash sudo apt update
 
 sudo apt install -y  vim \
-	    	git \
-	        curl \
-		zsh \
-		tmux \
-		ctags \
-	       	cmake \
-		zlib1g-dev \
-		libssl-dev \
-	       	python-dev \
-		libreadline-dev \
-		exuberant-ctags \
-		build-essential \
-		fonts-powerline \
-	    	ca-certificates \
-		ttf-ancient-fonts \
-		silversearcher-ag \
-		apt-transport-https \
-		software-properties-common
+        git \
+        curl \
+        zsh \
+        tmux \
+        ctags \
+        cmake \
+        clang \
+        zlib1g-dev \
+        libssl-dev \
+        python-dev \
+        python3-dev \
+        libreadline-dev \
+        exuberant-ctags \
+        build-essential \
+        fonts-powerline \
+        ca-certificates \
+        ttf-ancient-fonts \
+        silversearcher-ag \
+        apt-transport-https \
+        software-properties-common
 
 # install k-tmux
 curl https://raw.githubusercontent.com/wklken/k-tmux/master/tmux.conf > ~/.tmux.conf
@@ -73,14 +73,15 @@ else
 fi
 
 #install k-vim
-if ! sudo test -f "/tmp/k-vim/install.sh"
+if [ ! -d "$HOME/k-vim" ]
 then
-	cd /tmp
-    git clone https://github.com/2pd/k-vim.git
-    cd k-vim
-	sh -x install.sh
+    echo "will instal k-vim"
+    # cd ~
+    # git clone https://github.com/2pd/k-vim.git
+    # cd k-vim
+    # sh -x install.sh
 else
-	echo "k-vim is installed"
+    echo "k-vim is installed"
 fi
 
 # install docker
@@ -89,14 +90,9 @@ if [ -x "$(command -v docker)" ]
 then
     echo "Docker is installed"
 else
-    curl -fsSL get.docker.com -o get-docker.sh
-    sudo sh get-docker.sh
-    # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    # sudo add-apt-repository \
-	 # "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-	 # $(lsb_release -cs) \
-	 # edge"
-    # sudo apt update
-    # sudo apt-get install docker-ce
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu artful edge"
+    sudo apt update
+    sudo apt-get install docker-ce
 fi
 
